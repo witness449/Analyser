@@ -16,12 +16,12 @@
 
 namespace analyser::metric::metric_impl {
 
-struct CountParametersMetric final: public IMetric {
+struct CountParametersMetric final : public IMetric {
     // здесь ваш код
 
 protected:
-    virtual MetricResult::ValueType CalculateImpl(const function::Function& f) const override;
+    virtual MetricResult::ValueType CalculateImpl(const function::Function &f) const override;
     virtual std::string Name() const override;
 };
 
-} // namespace analyser::metric::metric_impl
+}  // namespace analyser::metric::metric_impl

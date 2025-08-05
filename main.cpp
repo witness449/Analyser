@@ -31,26 +31,26 @@ int main(int argc, char *argv[]) {
     options.Parse(argc, argv);
     // распарсите входные параметры
 
-    //Для отладки
+    // Для отладки
     analyser::file::File file("/workspaces/Analyser/files/sample.py");
     std::vector<analyser::function::Function> funcVector;
     analyser::function::FunctionExtractor fExtract;
-    std::vector<analyser::metric::MetricResults>resMetrics;
+    std::vector<analyser::metric::MetricResults> resMetrics;
 
-
-    funcVector=fExtract.Get(file);
-    
+    funcVector = fExtract.Get(file);
 
     analyser::metric::MetricExtractor metric_extractor;
-    
-    metric_extractor.RegisterMetric(std::make_unique<analyser::metric::metric_impl::CodeLinesCountMetric>(analyser::metric::metric_impl::CodeLinesCountMetric{}));
-    metric_extractor.RegisterMetric(std::make_unique<analyser::metric::metric_impl::CountParametersMetric>(analyser::metric::metric_impl::CountParametersMetric{}));
-    metric_extractor.RegisterMetric(std::make_unique<analyser::metric::metric_impl::CyclomaticComplexityMetric>(analyser::metric::metric_impl::CyclomaticComplexityMetric{}));
 
-    for(auto & f: funcVector){
+    metric_extractor.RegisterMetric(std::make_unique<analyser::metric::metric_impl::CodeLinesCountMetric>(
+        analyser::metric::metric_impl::CodeLinesCountMetric{}));
+    metric_extractor.RegisterMetric(std::make_unique<analyser::metric::metric_impl::CountParametersMetric>(
+        analyser::metric::metric_impl::CountParametersMetric{}));
+    metric_extractor.RegisterMetric(std::make_unique<analyser::metric::metric_impl::CyclomaticComplexityMetric>(
+        analyser::metric::metric_impl::CyclomaticComplexityMetric{}));
+
+    for (auto &f : funcVector) {
         resMetrics.push_back(metric_extractor.Get(f));
     }
-
 
     // зарегистрируйте метрики в metric_extractor
 
