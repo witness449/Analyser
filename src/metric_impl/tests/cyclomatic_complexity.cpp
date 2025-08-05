@@ -3,7 +3,6 @@
 #include <gtest/gtest.h>
 
 namespace analyser::metric::metric_impl {
-
-// здесь ваш код
+    // здесь ваш код
 
 }  // namespace analyser::metric::metric_impl

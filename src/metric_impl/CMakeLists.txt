@@ -13,6 +13,7 @@ target_link_libraries(${target}
         metric
         function
         file
+        range-v3::range-v3
 )
 
 file(GLOB test_files "${CMAKE_CURRENT_SOURCE_DIR}/tests/files/*.py")
