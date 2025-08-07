@@ -38,10 +38,14 @@ struct MetricsAccumulator {
     template <typename Accumulator>
     void RegisterAccumulator(const std::string &metric_name, std::unique_ptr<Accumulator> acc) {
         // здесь ваш код
+        accumulators.try_emplace(metric_name, std::move(acc));
     }
     template <typename Accumulator>
     const Accumulator &GetFinalizedAccumulator(const std::string &metric_name) const {
         // здесь ваш код
+        auto const pA = accumulators.at(metric_name);  // shared ptr!
+        pA->Finalize();
+        return pA.get();
     }
     void AccumulateNextFunctionResults(const std::vector<metric::MetricResult> &metric_results) const;
 
