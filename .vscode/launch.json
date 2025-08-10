@@ -8,7 +8,7 @@
             "type": "lldb",
             "request": "launch",
             "name": "Launch Analyser",
-            "program": "${workspaceFolder}/build/src/metric_impl/metric_test",
+            "program": "${workspaceFolder}/build/src/metric_accumulator_impl/metric_accumulator_test",
             "args": [
                 //"-f files/sample.py"
              ],

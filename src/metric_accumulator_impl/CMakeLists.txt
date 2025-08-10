@@ -1,3 +1,5 @@
+set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
+
 set(target metric_accumulator_test)
 
 add_executable(${target}
@@ -5,6 +7,7 @@ add_executable(${target}
     tests/categorical_accumulator.cpp
     tests/sum_average_accumulator.cpp
 )
+
 
 target_link_libraries(${target}
     PRIVATE

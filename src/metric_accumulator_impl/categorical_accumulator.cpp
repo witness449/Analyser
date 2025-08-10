@@ -24,7 +24,9 @@ namespace analyser::metric_accumulator::metric_accumulator_impl {
 void CategoricalAccumulator::Accumulate(const metric::MetricResult &metric_result) {
 
     if (!is_finalized) {
-        categories_freq[std::string(metric_result.value)]++;
+        categories_freq[std::to_string(metric_result.value)]++;
+    } else {
+        throw std::runtime_error("Accumulator is finalized");
     }
 }
 
@@ -39,9 +41,11 @@ void CategoricalAccumulator::Reset() {
     is_finalized = false;
 }
 
-const std::unordered_map<std::string, int> &Get() const {
+const std::unordered_map<std::string, int> &CategoricalAccumulator::Get() const {
     if (is_finalized) {
         return categories_freq;
+    } else {
+        throw std::runtime_error("Accumulator not finalized");
     }
 }
 

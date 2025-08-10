@@ -1,4 +1,6 @@
 
+set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
+
 add_custom_target(unit_tests)
 
 add_library(function
@@ -23,6 +25,7 @@ target_link_libraries(metric
 
 add_library(metric_accumulator
     metric_accumulator.cpp
+    metric_accumulator_impl/categorical_accumulator.cpp
     metric_accumulator_impl/average_accumulator.cpp
     metric_accumulator_impl/sum_average_accumulator.cpp
 )

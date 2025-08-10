@@ -24,6 +24,8 @@ void AverageAccumulator::Accumulate(const metric::MetricResult &metric_result) {
     if (!is_finalized) {
         sum += metric_result.value;
         count++;
+    } else {
+        throw std::runtime_error("Accumulator is finalized");
     }
 }
 
@@ -35,15 +37,17 @@ void AverageAccumulator::Finalize() {
 }
 
 void AverageAccumulator::Reset() {
-    int sum = 0;
-    int count = 0;
-    double average = 0;
+    sum = 0;
+    count = 0;
+    average = 0;
     is_finalized = false;
 }
 
 double AverageAccumulator::Get() const {
     if (is_finalized) {
         return average;
+    } else {
+        throw std::runtime_error("Accumulator not finalized");
     }
 }
 
