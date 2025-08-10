@@ -35,7 +35,6 @@ MetricResult::ValueType CountParametersMetric ::CalculateImpl(const function::Fu
     auto res2 = res1 | ranges::v3::view::filter([space_count, spaces](auto &&str) {
                     return str.substr(0, space_count + 2) == spaces && str[space_count + 3] != ' ';
                 });
-    std::cout << "p" << ranges::distance(res2);
     return ranges::distance(res2);
 }
 

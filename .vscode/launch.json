@@ -8,9 +8,9 @@
             "type": "lldb",
             "request": "launch",
             "name": "Launch Analyser",
-            "program": "${workspaceFolder}/build/analyser",
+            "program": "${workspaceFolder}/build/src/metric_impl/metric_test",
             "args": [
-                "-f files/sample.py"
+                //"-f files/sample.py"
              ],
             "cwd": "${workspaceFolder}/build"
         }

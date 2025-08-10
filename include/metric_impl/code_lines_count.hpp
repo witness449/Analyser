@@ -20,9 +20,9 @@
 
 namespace analyser::metric::metric_impl {
 
-struct CodeLinesCountMetric final : IMetric {
+struct CodeLinesCountMetric final : public IMetric {
     // здесь ваш код
-protected:
+    // protected:
     virtual MetricResult::ValueType CalculateImpl(const function::Function &f) const override;
     virtual std::string Name() const override;
 };
