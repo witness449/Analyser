@@ -16,6 +16,7 @@
 #include <string>
 #include <variant>
 #include <vector>
+#include <set>
 
 #include "file.hpp"
 #include "function.hpp"
@@ -50,15 +51,25 @@ std::vector<AnalyseFunctionsResult> AnalyseFunctions(const std::vector<std::stri
 }
 
 auto SplitByClasses(const auto &analysis) {
-    auto res = analysis | rv::filter([](const auto &result) { return result.f.class_name.has_value(); }) |
-               rv::chunk_by([](const auto &l, const auto &r) { return l.f.class_name == r.f.class_name; }) |
+    //rs::to<std::vector>();
+
+    auto comparator=[](const AnalyseFunctionsResult& l,  const AnalyseFunctionsResult& r ){
+        return l.f.class_name<r.f.class_name;
+    };
+    
+    auto res = analysis | rv::filter([](const auto &result) { return result.f.class_name.has_value(); }) | rs::to<std::multiset<AnalyseFunctionsResult, decltype(
+comparator)>>();
+    //auto sorted=rs::sort(res, {}, [](const auto& obj){return obj.f.class_name;});// | rs::to<std::vector>();
+    auto result=res | rv::chunk_by([](const auto &l, const auto &r) { return l.f.class_name == r.f.class_name; }) |
                rs::to<std::vector<std::vector<AnalyseFunctionsResult>>>();
+    return result;
 }
 
 auto SplitByFiles(const auto &analysis) {
     // здесь ваш код
     auto res = analysis | rv::chunk_by([](const auto &l, const auto &r) { return l.f.filename == r.f.filename; }) |
                rs::to<std::vector<std::vector<AnalyseFunctionsResult>>>();
+    return res;
 }
 
 void AccumulateFunctionAnalysis(const auto &analysis,
