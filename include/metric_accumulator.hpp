@@ -45,7 +45,7 @@ struct MetricsAccumulator {
         // здесь ваш код
         auto const pA = accumulators.at(metric_name);  // shared ptr!
         pA->Finalize();
-        auto& res=dynamic_cast<Accumulator&>(*(pA.get()));
+        auto &res = dynamic_cast<Accumulator &>(*(pA.get()));
         return res;
     }
     void AccumulateNextFunctionResults(const std::vector<metric::MetricResult> &metric_results) const;

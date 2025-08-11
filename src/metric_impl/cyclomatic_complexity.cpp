@@ -34,7 +34,7 @@ MetricResult::ValueType CyclomaticComplexityMetric::CalculateImpl(const function
                    return sv.substr(0, sv.find_first_of(" :"));
                }) |
                std::views::filter([](auto &&str) { return constructions.contains(std::string{str}); });
-    
+
     return ranges::distance(res);
 }
 
