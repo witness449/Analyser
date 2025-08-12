@@ -49,7 +49,8 @@ int main(int argc, char *argv[]) {
             std::println("{}{}::{}", res.f.filename,
                          res.f.class_name.has_value() ? "::" + res.f.class_name.value() : "", res.f.name);
             std::ranges::for_each(res.mr, [](const auto &metric_result) {
-                std::println("    {}: {}", metric_result.metric_name, metric_result.value);
+                std::print("    {}: ", metric_result.metric_name);
+                std::visit([](auto &&val) { std::println("{}", val); }, metric_result.value);
             });
         });
 

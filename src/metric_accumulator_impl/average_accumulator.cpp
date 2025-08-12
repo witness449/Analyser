@@ -21,7 +21,7 @@ namespace analyser::metric_accumulator::metric_accumulator_impl {
 
 void AverageAccumulator::Accumulate(const metric::MetricResult &metric_result) {
     if (!is_finalized) {
-        sum += metric_result.value;
+        sum += std::get<int>(metric_result.value);
         count++;
     } else {
         throw std::runtime_error("Accumulator is finalized");

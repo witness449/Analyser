@@ -35,7 +35,7 @@ MetricResult::ValueType CodeLinesCountMetric::CalculateImpl(const function::Func
                     auto b = std::string_view(str2.begin() + s2, str2.begin() + e2);
                     return a != b;
                 });
-    return ranges::distance(res2);
+    return static_cast<int>(ranges::distance(res2));
 }
 
 std::string CodeLinesCountMetric::Name() const { return "count_of_lines"; }

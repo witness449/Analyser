@@ -23,6 +23,7 @@ MetricResult::ValueType CountParametersMetric ::CalculateImpl(const function::Fu
         std::views::drop_while([](auto &&str) { return !str.contains("parameters"); }) |
         std::views::take_while([](auto &&str) { return !(str.contains("body") || str.contains("return_type")); });
 
+    // Определяем строки описывающие параметры в блоке parameters АСТ дерева по количеству пробелов
     auto first = std::string_view{*res1.begin()};
     int space_count = first.find_first_of('p');
     std::string spaces;
@@ -32,7 +33,7 @@ MetricResult::ValueType CountParametersMetric ::CalculateImpl(const function::Fu
     auto res2 = res1 | ranges::v3::view::filter([space_count, spaces](auto &&str) {
                     return str.substr(0, space_count + 2) == spaces && str[space_count + 3] != ' ';
                 });
-    return ranges::distance(res2);
+    return static_cast<int>(ranges::distance(res2));
 }
 
 std::string CountParametersMetric ::Name() const { return "count_parameters"; }

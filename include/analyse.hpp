@@ -55,6 +55,7 @@ auto SplitByClasses(const auto &analysis) {
         return l.f.class_name < r.f.class_name;
     };
 
+    // Используем multiset для того чтобы определения функций одного класса, но в разных файлах оказались "рядом"
     auto res = analysis | rv::filter([](const auto &result) { return result.f.class_name.has_value(); }) |
                rs::to<std::multiset<AnalyseFunctionsResult, decltype(comparator)>>() |
                rv::chunk_by([](const auto &l, const auto &r) { return l.f.class_name == r.f.class_name; }) |

@@ -35,7 +35,7 @@ MetricResult::ValueType CyclomaticComplexityMetric::CalculateImpl(const function
                }) |
                std::views::filter([](auto &&str) { return constructions.contains(std::string{str}); });
 
-    return ranges::distance(res);
+    return static_cast<int>(ranges::distance(res));
 }
 
 std::string CyclomaticComplexityMetric::Name() const { return "cyclomatic_complexity"; }
