@@ -20,11 +20,9 @@
 
 namespace analyser::metric::metric_impl {
 
-struct CyclomaticComplexityMetric : IMetric {
-    // здесь ваш код
-    // protected:
-    virtual MetricResult::ValueType CalculateImpl(const function::Function &f) const override;
-    virtual std::string Name() const override;
+struct CyclomaticComplexityMetric final : IMetric {
+    MetricResult::ValueType CalculateImpl(const function::Function &f) const override;
+    std::string Name() const override;
 };
 
 }  // namespace analyser::metric::metric_impl

@@ -19,8 +19,6 @@
 
 namespace analyser::metric_accumulator::metric_accumulator_impl {
 
-// здесь ваш код
-
 void CategoricalAccumulator::Accumulate(const metric::MetricResult &metric_result) {
 
     if (!is_finalized) {

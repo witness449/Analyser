@@ -6,8 +6,6 @@
 
 namespace analyser::metric_accumulator::metric_accumulator_impl::test {
 
-// здесь ваш код
-
 class AverageAccumulatorTest : public testing::Test {
 protected:
     void SetUp() override {};

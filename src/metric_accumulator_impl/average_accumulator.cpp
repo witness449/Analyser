@@ -19,7 +19,6 @@
 
 namespace analyser::metric_accumulator::metric_accumulator_impl {
 
-// здесь ваш код
 void AverageAccumulator::Accumulate(const metric::MetricResult &metric_result) {
     if (!is_finalized) {
         sum += metric_result.value;

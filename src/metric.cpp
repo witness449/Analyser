@@ -25,7 +25,6 @@ namespace analyser::metric {
 void MetricExtractor::RegisterMetric(std::unique_ptr<IMetric> metric) { metrics.push_back(std::move(metric)); }
 
 MetricResults MetricExtractor::Get(const function::Function &func) const {
-    // здесь ваш код
 
     MetricResults resVector;
     for (const auto &m : metrics) {

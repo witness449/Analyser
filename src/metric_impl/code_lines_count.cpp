@@ -22,7 +22,6 @@ using namespace std::string_view_literals;
 
 namespace analyser::metric::metric_impl {
 
-// здесь ваш код
 MetricResult::ValueType CodeLinesCountMetric::CalculateImpl(const function::Function &f) const {
     auto res1 = std::ranges::views::split(f.ast, '\n') |
                 std::views::transform([](auto &&str) { return std::string_view{str}; });

@@ -22,10 +22,7 @@ MetricResult::ValueType CountParametersMetric ::CalculateImpl(const function::Fu
         std::ranges::views::split(f.ast, '\n') | std::views::transform([](auto &&rr) { return std::string_view{rr}; }) |
         std::views::drop_while([](auto &&str) { return !str.contains("parameters"); }) |
         std::views::take_while([](auto &&str) { return !(str.contains("body") || str.contains("return_type")); });
-    /*std::vector<std::string_view> ress;
-    for(auto r:res1){
-        ress.push_back(std::string_view(r));
-    }*/
+
     auto first = std::string_view{*res1.begin()};
     int space_count = first.find_first_of('p');
     std::string spaces;
