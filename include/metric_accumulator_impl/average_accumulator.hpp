@@ -20,7 +20,7 @@
 
 namespace analyser::metric_accumulator::metric_accumulator_impl {
 
-struct AverageAccumulator : public IAccumulator {
+struct AverageAccumulator final : public IAccumulator {
     void Accumulate(const metric::MetricResult &metric_result) override;
 
     void Finalize() override;

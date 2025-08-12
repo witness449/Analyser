@@ -20,7 +20,7 @@
 
 namespace analyser::metric_accumulator::metric_accumulator_impl {
 
-struct SumAverageAccumulator : public IAccumulator {
+struct SumAverageAccumulator final : public IAccumulator {
     struct SumAverage {
         int sum;
         double average;

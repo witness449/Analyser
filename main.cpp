@@ -42,6 +42,7 @@ int main(int argc, char *argv[]) {
         metric_extractor.RegisterMetric(std::make_unique<mc::CountParametersMetric>(mc::CountParametersMetric{}));
         metric_extractor.RegisterMetric(
             std::make_unique<mc::CyclomaticComplexityMetric>(mc::CyclomaticComplexityMetric{}));
+        metric_extractor.RegisterMetric(std::make_unique<mc::NamingStyleMetric>(mc::NamingStyleMetric{}));
 
         auto analyseResults = analyser::AnalyseFunctions(options.GetFiles(), metric_extractor);
 
@@ -58,6 +59,7 @@ int main(int argc, char *argv[]) {
         accumulator.RegisterAccumulator("count_of_lines", std::make_unique<ma::SumAverageAccumulator>());
         accumulator.RegisterAccumulator("cyclomatic_complexity", std::make_unique<ma::SumAverageAccumulator>());
         accumulator.RegisterAccumulator("count_parameters", std::make_unique<ma::AverageAccumulator>());
+        accumulator.RegisterAccumulator("naming_style", std::make_unique<ma::CategoricalAccumulator>());
 
         auto splitByFiles = SplitByFiles(analyseResults);
 
@@ -79,6 +81,13 @@ int main(int argc, char *argv[]) {
             auto &avgCountPar = accumulator.GetFinalizedAccumulator<ma::AverageAccumulator>("count_parameters");
             double resultAvgCountPar = avgCountPar.Get();
             std::println("    count_parameters: average={:.3f}", resultAvgCountPar);
+
+            auto &namingStyle = accumulator.GetFinalizedAccumulator<ma::CategoricalAccumulator>("naming_style");
+            auto &frequencyStyles = namingStyle.Get();
+            std::println("    naming style:");
+            std::ranges::for_each(frequencyStyles, [](const auto &category) {
+                std::println("        {}: {}", category.first, category.second);
+            });
         });
 
         auto splitByClasses = SplitByClasses(analyseResults);
@@ -103,6 +112,13 @@ int main(int argc, char *argv[]) {
             auto &avgCountPar = accumulator.GetFinalizedAccumulator<ma::AverageAccumulator>("count_parameters");
             double resultAvgCountPar = avgCountPar.Get();
             std::println("    count_parameters: average={:.3f}", resultAvgCountPar);
+
+            auto &namingStyle = accumulator.GetFinalizedAccumulator<ma::CategoricalAccumulator>("naming_style");
+            auto &frequencyStyles = namingStyle.Get();
+            std::println("    naming style:");
+            std::ranges::for_each(frequencyStyles, [](const auto &category) {
+                std::println("        {}: {}", category.first, category.second);
+            });
         });
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;

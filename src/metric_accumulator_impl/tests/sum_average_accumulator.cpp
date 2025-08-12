@@ -39,7 +39,7 @@ TEST_F(SumAverageAccumulatorTest, MultipleMetric) {
 
 TEST_F(SumAverageAccumulatorTest, AccumulateReset) {
     analyser::metric::MetricResult result{"single_metric", 1};
-    analyser::metric::MetricResult result1{"triple_metric", 1};  // Проверка на имя!
+    analyser::metric::MetricResult result1{"triple_metric", 1};
     analyser::metric::MetricResult result2{"triple_metric", 2};
     analyser::metric::MetricResult result3{"triple_metric", 3};
     accumulator.Accumulate(result);
