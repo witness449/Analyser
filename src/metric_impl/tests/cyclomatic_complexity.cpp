@@ -3,7 +3,68 @@
 #include <gtest/gtest.h>
 
 namespace analyser::metric::metric_impl {
-
 // здесь ваш код
+
+class CyclomaticComplexityMetricTest : public testing::Test {
+protected:
+    CyclomaticComplexityMetric metric{};
+
+    std::vector<function::Function> Get(const std::string &filename) {
+        file::File file(filename);
+        return function::FunctionExtractor{}.Get(file);
+    }
+};
+
+TEST_F(CyclomaticComplexityMetricTest, MetricName) { ASSERT_EQ(metric.Name(), "cyclomatic_complexity"); }
+
+TEST_F(CyclomaticComplexityMetricTest, CyclComplOfComments) {
+    function::Function f = Get("/workspaces/Analyser/src/metric_impl/tests/files/comments.py").at(0);
+    ASSERT_EQ(std::get<int>(metric.Calculate(f).value), 0);
+}
+
+TEST_F(CyclomaticComplexityMetricTest, CyclComplOfExceptions) {
+    function::Function f = Get("/workspaces/Analyser/src/metric_impl/tests/files/exceptions.py").at(0);
+    ASSERT_EQ(std::get<int>(metric.Calculate(f).value), 4);
+}
+
+TEST_F(CyclomaticComplexityMetricTest, CyclComplOfIf) {
+    function::Function f = Get("/workspaces/Analyser/src/metric_impl/tests/files/if.py").at(0);
+    ASSERT_EQ(std::get<int>(metric.Calculate(f).value), 1);
+}
+
+TEST_F(CyclomaticComplexityMetricTest, CyclComplOfLoops) {
+    function::Function f = Get("/workspaces/Analyser/src/metric_impl/tests/files/loops.py").at(0);
+    ASSERT_EQ(std::get<int>(metric.Calculate(f).value), 3);
+}
+
+TEST_F(CyclomaticComplexityMetricTest, CyclComplOfManyLines) {
+    function::Function f = Get("/workspaces/Analyser/src/metric_impl/tests/files/many_lines.py").at(0);
+    ASSERT_EQ(std::get<int>(metric.Calculate(f).value), 1);
+}
+
+TEST_F(CyclomaticComplexityMetricTest, CyclComplOfManyParameters) {
+    function::Function f = Get("/workspaces/Analyser/src/metric_impl/tests/files/many_parameters.py").at(0);
+    ASSERT_EQ(std::get<int>(metric.Calculate(f).value), 1);
+}
+
+TEST_F(CyclomaticComplexityMetricTest, CyclComplOfMatchCase) {
+    function::Function f = Get("/workspaces/Analyser/src/metric_impl/tests/files/match_case.py").at(0);
+    ASSERT_EQ(std::get<int>(metric.Calculate(f).value), 4);
+}
+
+TEST_F(CyclomaticComplexityMetricTest, CyclComplOfNestedIf) {
+    function::Function f = Get("/workspaces/Analyser/src/metric_impl/tests/files/nested_if.py").at(0);
+    ASSERT_EQ(std::get<int>(metric.Calculate(f).value), 4);
+}
+
+TEST_F(CyclomaticComplexityMetricTest, CyclComplOfSimple) {
+    function::Function f = Get("/workspaces/Analyser/src/metric_impl/tests/files/simple.py").at(0);
+    ASSERT_EQ(std::get<int>(metric.Calculate(f).value), 1);
+}
+
+TEST_F(CyclomaticComplexityMetricTest, CyclComplOfTernary) {
+    function::Function f = Get("/workspaces/Analyser/src/metric_impl/tests/files/ternary.py").at(0);
+    ASSERT_EQ(std::get<int>(metric.Calculate(f).value), 2);
+}
 
 }  // namespace analyser::metric::metric_impl

@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
+
 # Configure local githooks
 execute_process(
     COMMAND git config core.hooksPath .githooks
@@ -14,9 +16,11 @@ execute_process(
 
 find_package(GTest REQUIRED)
 find_package(Boost REQUIRED COMPONENTS program_options)
+find_package(range-v3 REQUIRED)
 
 include_directories(
     ${CMAKE_SOURCE_DIR}/include
+    ${range-v3_INCLUDE_DIR}
 )
 
 set(target analyser)
@@ -24,6 +28,7 @@ set(target analyser)
 add_executable(${target} main.cpp)
 target_include_directories(${target} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${range-v3_INCLUDE_DIR}
 )
 
 target_link_libraries(${target} 

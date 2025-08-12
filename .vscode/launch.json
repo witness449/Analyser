@@ -8,13 +8,10 @@
             "type": "lldb",
             "request": "launch",
             "name": "Launch Analyser",
-            "program": "${workspaceFolder}/build/Analyser",
+            "program": "${workspaceFolder}/build/analyser",
             "args": [
-                "-i",
-                "input.txt",
-                "--command",
-                "checksum"
-            ],
+                "-f${workspaceFolder}/files/sample.py"
+             ],
             "cwd": "${workspaceFolder}/build"
         }
 
